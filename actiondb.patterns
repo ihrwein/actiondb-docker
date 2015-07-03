@@ -1,0 +1,1 @@
+seq: %{INT:adb_seq}, thread: %{INT:adb_thread}, runid: %{INT:adb_runid}, stamp: %{GREEDY:adb_stamp} %{GREEDY:adb_padding}
