@@ -27,3 +27,7 @@ the file `/tmp/loggen.log` (in the container).
 
 You can mount directories from the host into the container with the `-v` parameter. This way, you
 can use this container to parse your logs without even installing Rust and syslog-ng.
+
+# Supported ActionDB versions
+
+`actiondb-0.1.0`

@@ -2,6 +2,7 @@ FROM ubuntu:14.04
 
 ENV PKG_CONFIG_PATH /root/install/syslog-ng/lib/pkgconfig
 ENV SYSLOG_NG_INSTALL_DIR /root/install/syslog-ng
+ENV ACTIONDB_RELEASE actiondb-0.1.0
 
 RUN apt-get update -y
 RUN apt-get install -y \
@@ -30,10 +31,10 @@ RUN apt-get install -y \
 
 RUN mkdir /sources
 WORKDIR /sources
-RUN git clone https://github.com/ihrwein/syslog-ng-rust-modules.git
-RUN git clone https://github.com/ihrwein/syslog-ng.git -b f/rust-things
-RUN git clone https://github.com/ihrwein/syslog-ng-incubator.git -b f/rust
-RUN git clone https://github.com/ihrwein/actiondb.git
+RUN git clone https://github.com/ihrwein/syslog-ng-rust-modules.git -b $ACTIONDB_RELEASE
+RUN git clone https://github.com/ihrwein/syslog-ng.git -b $ACTIONDB_RELEASE
+RUN git clone https://github.com/ihrwein/syslog-ng-incubator.git -b $ACTIONDB_RELEASE
+RUN git clone https://github.com/ihrwein/actiondb.git -b $ACTIONDB_RELEASE
 
 RUN curl -sL https://static.rust-lang.org/dist/rust-1.1.0-x86_64-unknown-linux-gnu.tar.gz | tar xz -C /tmp
 RUN /tmp/rust-1.1.0-x86_64-unknown-linux-gnu/install.sh
