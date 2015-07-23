@@ -33,7 +33,7 @@ RUN mkdir /sources
 WORKDIR /sources
 RUN git clone https://github.com/ihrwein/syslog-ng-rust-modules.git -b $ACTIONDB_RELEASE
 RUN git clone https://github.com/balabit/syslog-ng.git
-RUN git clone https://github.com/ihrwein/syslog-ng-incubator.git -b $ACTIONDB_RELEASE
+RUN git clone https://github.com/ihrwein/syslog-ng-incubator.git -b f/rust
 RUN git clone https://github.com/ihrwein/actiondb.git -b $ACTIONDB_RELEASE
 
 RUN curl -sL https://static.rust-lang.org/dist/rust-1.1.0-x86_64-unknown-linux-gnu.tar.gz | tar xz -C /tmp
