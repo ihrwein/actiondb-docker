@@ -30,4 +30,4 @@ can use this container to parse your logs without even installing Rust and syslo
 
 # Supported ActionDB versions
 
-`actiondb-0.1.0`
+`actiondb-0.2.1`
