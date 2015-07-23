@@ -50,7 +50,7 @@ RUN cat libsyslog_ng_rust_modules.pc | tail -n +2 >> $PKG_CONFIG_PATH/libsyslog_
 WORKDIR /sources/syslog-ng-incubator
 RUN autoreconf -i
 RUN mkdir b && cd b && ../configure --enable-rust && make && make install
-ADD actiondb.patterns $SYSLOG_NG_INSTALL_DIR/etc/
+ADD loggen.json $SYSLOG_NG_INSTALL_DIR/etc/
 ADD syslog-ng.conf $SYSLOG_NG_INSTALL_DIR/etc/
 
 WORKDIR /root/install/syslog-ng
