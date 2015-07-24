@@ -55,4 +55,4 @@ ADD syslog-ng.conf $SYSLOG_NG_INSTALL_DIR/etc/
 WORKDIR /root/install/syslog-ng
 EXPOSE 1514
 
-CMD sbin/syslog -Fevd
+ENTRYPOINT ["/root/install/syslog-ng/sbin/syslog-ng", "-F"]
