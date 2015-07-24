@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 ENV PKG_CONFIG_PATH /root/install/syslog-ng/lib/pkgconfig
 ENV SYSLOG_NG_INSTALL_DIR /root/install/syslog-ng
-ENV ACTIONDB_RELEASE actiondb-0.1.0
+ENV ACTIONDB_RELEASE actiondb-0.2.1
 
 RUN apt-get update -y
 RUN apt-get install -y \
@@ -32,9 +32,8 @@ RUN apt-get install -y \
 RUN mkdir /sources
 WORKDIR /sources
 RUN git clone https://github.com/ihrwein/syslog-ng-rust-modules.git -b $ACTIONDB_RELEASE
-RUN git clone https://github.com/ihrwein/syslog-ng.git -b $ACTIONDB_RELEASE
-RUN git clone https://github.com/ihrwein/syslog-ng-incubator.git -b $ACTIONDB_RELEASE
-RUN git clone https://github.com/ihrwein/actiondb.git -b $ACTIONDB_RELEASE
+RUN git clone https://github.com/balabit/syslog-ng.git
+RUN git clone https://github.com/ihrwein/syslog-ng-incubator.git -b f/rust
 
 RUN curl -sL https://static.rust-lang.org/dist/rust-1.1.0-x86_64-unknown-linux-gnu.tar.gz | tar xz -C /tmp
 RUN /tmp/rust-1.1.0-x86_64-unknown-linux-gnu/install.sh
@@ -50,10 +49,14 @@ RUN cat libsyslog_ng_rust_modules.pc | tail -n +2 >> $PKG_CONFIG_PATH/libsyslog_
 WORKDIR /sources/syslog-ng-incubator
 RUN autoreconf -i
 RUN mkdir b && cd b && ../configure --enable-rust && make && make install
-ADD actiondb.patterns $SYSLOG_NG_INSTALL_DIR/etc/
+ADD loggen.json $SYSLOG_NG_INSTALL_DIR/etc/patterns.json
 ADD syslog-ng.conf $SYSLOG_NG_INSTALL_DIR/etc/
 
+RUN ln -s /tmp /output
+RUN ln -s $SYSLOG_NG_INSTALL_DIR/etc /config
+VOLUME /config
+VOLUME /output
 WORKDIR /root/install/syslog-ng
 EXPOSE 1514
 
-CMD sbin/syslog -Fevd
+ENTRYPOINT ["/root/install/syslog-ng/sbin/syslog-ng", "-F"]
