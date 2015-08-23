@@ -83,4 +83,5 @@ sudo docker run -v $(pwd):/output -p 1514:1514 ihrwein/syslog-ng-rust
 
 # Supported ActionDB versions
 
+`actiondb-0.3.0`
 `actiondb-0.2.1`
