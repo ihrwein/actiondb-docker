@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 ENV PKG_CONFIG_PATH /root/install/syslog-ng/lib/pkgconfig
 ENV SYSLOG_NG_INSTALL_DIR /root/install/syslog-ng
-ENV ACTIONDB_RELEASE actiondb-0.2.1
+ENV ACTIONDB_RELEASE actiondb-0.3.0
 
 RUN apt-get update -y
 RUN apt-get install -y \
@@ -35,14 +35,14 @@ RUN git clone https://github.com/ihrwein/syslog-ng-rust-modules.git -b $ACTIONDB
 RUN git clone https://github.com/balabit/syslog-ng.git
 RUN git clone https://github.com/ihrwein/syslog-ng-incubator.git -b f/rust
 
-RUN curl -sL https://static.rust-lang.org/dist/rust-1.1.0-x86_64-unknown-linux-gnu.tar.gz | tar xz -C /tmp
-RUN /tmp/rust-1.1.0-x86_64-unknown-linux-gnu/install.sh
+RUN curl -sL https://static.rust-lang.org/dist/rust-1.2.0-x86_64-unknown-linux-gnu.tar.gz | tar xz -C /tmp
+RUN /tmp/rust-1.2.0-x86_64-unknown-linux-gnu/install.sh
 
 WORKDIR /sources/syslog-ng
 RUN ./autogen.sh && mkdir b && cd b && ../configure --with-python=no --prefix=$SYSLOG_NG_INSTALL_DIR && make && make install
 
 WORKDIR /sources/syslog-ng-rust-modules
-RUN cargo build
+RUN cargo build --release
 RUN echo "prefix=/sources/syslog-ng-rust-modules" > $PKG_CONFIG_PATH/libsyslog_ng_rust_modules.pc
 RUN cat libsyslog_ng_rust_modules.pc | tail -n +2 >> $PKG_CONFIG_PATH/libsyslog_ng_rust_modules.pc
 
