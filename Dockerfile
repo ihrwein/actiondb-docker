@@ -42,7 +42,7 @@ WORKDIR /sources/syslog-ng
 RUN ./autogen.sh && mkdir b && cd b && ../configure --with-python=no --prefix=$SYSLOG_NG_INSTALL_DIR && make && make install
 
 WORKDIR /sources/syslog-ng-rust-modules
-RUN cargo build
+RUN cargo build --release
 RUN echo "prefix=/sources/syslog-ng-rust-modules" > $PKG_CONFIG_PATH/libsyslog_ng_rust_modules.pc
 RUN cat libsyslog_ng_rust_modules.pc | tail -n +2 >> $PKG_CONFIG_PATH/libsyslog_ng_rust_modules.pc
 
