@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 ENV PKG_CONFIG_PATH /root/install/syslog-ng/lib/pkgconfig
 ENV SYSLOG_NG_INSTALL_DIR /root/install/syslog-ng
-ENV ACTIONDB_RELEASE actiondb-0.2.1
+ENV ACTIONDB_RELEASE actiondb-0.3.0
 
 RUN apt-get update -y
 RUN apt-get install -y \
