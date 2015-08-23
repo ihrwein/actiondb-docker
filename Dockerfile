@@ -35,8 +35,8 @@ RUN git clone https://github.com/ihrwein/syslog-ng-rust-modules.git -b $ACTIONDB
 RUN git clone https://github.com/balabit/syslog-ng.git
 RUN git clone https://github.com/ihrwein/syslog-ng-incubator.git -b f/rust
 
-RUN curl -sL https://static.rust-lang.org/dist/rust-1.1.0-x86_64-unknown-linux-gnu.tar.gz | tar xz -C /tmp
-RUN /tmp/rust-1.1.0-x86_64-unknown-linux-gnu/install.sh
+RUN curl -sL https://static.rust-lang.org/dist/rust-1.2.0-x86_64-unknown-linux-gnu.tar.gz | tar xz -C /tmp
+RUN /tmp/rust-1.2.0-x86_64-unknown-linux-gnu/install.sh
 
 WORKDIR /sources/syslog-ng
 RUN ./autogen.sh && mkdir b && cd b && ../configure --with-python=no --prefix=$SYSLOG_NG_INSTALL_DIR && make && make install
