@@ -4,6 +4,11 @@
       "uuid":"6d2cba0c-e241-464a-89c3-8035cac8f73e",
       "name":"LOGGEN",
       "pattern":"seq: %{INT:.loggen.seq}, thread: %{INT:.loggen.thread}, runid: %{INT:.loggen.runid}, stamp: %{GREEDY:.loggen.stamp} %{GREEDY:.loggen.padding}",
+      "tags": ["tag1", "tag2"],
+      "values": {
+        "key1": "value1",
+        "key2": "value2"
+      },
       "test_messages":[  
         {  
           "message":"seq: 0000000001, thread: 0000, runid: 1437655178, stamp: 2015-07-23T14:39:38 PADDPADDPADDPADD",
@@ -13,7 +18,8 @@
             ".loggen.runid":"1437655178",
             ".loggen.stamp":"2015-07-23T14:39:38",
             ".loggen.padding":"PADDPADDPADDPADD"
-          }
+          },
+          "tags": ["tag1"]
         }
       ]
     }
